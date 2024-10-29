@@ -36,6 +36,26 @@
                 <div class="card-body">
                     <p>Details about solar panel benefits, installation costs, and incentives in Mexico.</p>
                     <!-- Aquí información específica sobre México -->
+                    <p>A solar panel generates 400 kWh per month and costs approximately 22,000 pesos.</p> <p>If you use 75 kWh per month, you pay 1,015 pesos. If you use an additional 65 kWh, it costs 1,250 pesos, and for any excess usage, it's 3.730 pesos per watt-hour (for each extra Wh).</p> 
+                    <table border="1">
+                     <tr> 
+                    <th>kWh</th> 
+                    <th>Pesos</th> 
+                    </tr> 
+                    <tr> 
+                    <td>75</td>
+                     <td>76.125</td> 
+                    </tr> 
+                    <tr> 
+                    <td>65</td> 
+                    <td>81.25</td> 
+                    </tr> 
+                    <tr> 
+                    <td>Excess</td> 
+                    <td>3.730</td> 
+                    </tr> 
+                    </table>
+                    
                 </div>
             </div>
         </div>
@@ -64,6 +84,12 @@
                 <div class="card-body">
                     <p>Details about solar panel benefits, installation costs, and incentives in Canada.</p>
                     <!-- Aquí información específica sobre Canadá -->
+                    <p>A solar panel generates 600 kWh per month. In Canada, end-users face varying electricity costs, with a national average of 19.2 Canadian cents per kilowatt-hour as of September 2023. Due to its remote location, electricity is more expensive in the Northwest Territories, where the cost per kilowatt-hour reaches 41 Canadian cents. For our calculations, we’ll use the average rate of CAD $0.192 per kWh.</p>
+
+                    <br>
+                    
+                    <p>Installation Cost: A typical residential solar system in Canada ranges from CAD $10,000 to CAD $30,000 for a system of approximately 5 to 10 kW. We’ll assume an installation cost of CAD $20,000.</p>
+                    
                 </div>
             </div>
         </div>
@@ -138,7 +164,7 @@
         var wh = 0,tiempo,paneles1;
         wh=Math.ceil(din/0.1547);
         paneles1=Math.ceil(wh / 81);
-        tiempo=Math.ceil(742.50/din);
+        tiempo=Math.ceil((742.50*paneles1)/din);//8,910    
         const imp = `You need at least ${paneles1} panel(s) to cover your electricity cost. And you would recover your money ${tiempo} in months.`;
         return imp;
 }

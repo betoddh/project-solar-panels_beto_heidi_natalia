@@ -1,0 +1,82 @@
+<%- include("./partials/header"); -%>
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card text-center mb-3">
+                <div class="card-body">
+                    <button class="btn btn-warning btn-block" data-toggle="collapse" data-target="#info1">
+                        Solar Panel Basics
+                    </button>
+                    <div id="info1" class="collapse mt-3">
+                        <img src="Img/casa-1.png" alt="Solar Panel Basics" class="img-fluid mb-2">
+                        <p>Solar panels capture sunlight and convert it into electricity. They are an effective way to reduce your electricity bills and environmental footprint.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center mb-3">
+                <div class="card-body">
+                    <button class="btn btn-warning btn-block" data-toggle="collapse" data-target="#info2">
+                        Benefits of Solar Panels
+                    </button>
+                    <div id="info2" class="collapse mt-3">
+                        <img src="Img/casa-1.png" alt="Benefits of Solar Panels" class="img-fluid mb-2">
+                        <p>Solar panels can significantly reduce electricity costs and provide a sustainable, renewable source of energy for over 25 years.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5" id="info">
+    <h1 class="text-center mb-4">Information</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="Img/casa-1.png" alt="casa" class="img-fluid rounded shadow-sm" data-toggle="modal" data-target="#solarModal" style="cursor: pointer;">
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-body bg-warning">
+                    <h2 class="card-title">Save with Solar</h2>
+                    <p class="card-text">Installing solar panels can help you save on electricity bills while reducing your carbon footprint.</p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body bg-success text-white">
+                    <h2 class="card-title">Go Green</h2>
+                    <p class="card-text">Solar energy is a renewable source of power, helping you contribute to a cleaner and greener environment.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="solarModal" tabindex="-1" role="dialog" aria-labelledby="solarModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="solarModalLabel">About Solar Panels</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Solar panels convert sunlight into electricity, providing a sustainable and renewable energy source. They help reduce energy bills and have a lifespan of over 25 years. By installing solar panels, you can decrease your dependency on fossil fuels and contribute to environmental conservation.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<%- include("partials/footer"); -%>

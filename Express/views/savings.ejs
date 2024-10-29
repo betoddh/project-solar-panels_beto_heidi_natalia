@@ -1,0 +1,144 @@
+<%- include("./partials/header"); -%>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Calculate your Solar Savings</h1>
+    <div class="card p-4">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="countrySelect">In which country do you live:</label>
+                <select class="form-control" id="countrySelect" onchange="displayCountryInfo()">
+                    <option value="">Choose</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="USA">USA</option>
+                    <option value="Canada">Canada</option>
+                </select>
+            </div>
+            <div id="countryInfo" class="text-center mt-4"></div>
+
+            <h4 class="text-center mt-4">Calculate how much you would save if you had solar panels</h4>
+            
+            <div class="calculator-container mt-4" style="max-width: 300px; margin: auto;">
+                <div class="screen bg-info text-white text-center p-3 mb-3 rounded" id="display">0</div>
+                <div class="row">
+                    <button class="col btn btn-warning m-1" onclick="appendNumber('1')">1</button>
+                    <button class="col btn btn-warning m-1" onclick="appendNumber('2')">2</button>
+                    <button class="col btn btn-warning m-1" onclick="appendNumber('3')">3</button>
+                    <button class="col btn btn-secondary m-1" onclick="setOperation('+')">+</button>
+                </div>
+                <div class="row">
+                    <button class="col btn btn-warning m-1" onclick="appendNumber('4')">4</button>
+                    <button class="col btn btn-warning m-1" onclick="appendNumber('5')">5</button>
+                    <button class="col btn btn-warning m-1" onclick="appendNumber('6')">6</button>
+                    <button class="col btn btn-secondary m-1" onclick="calculate()">=</button>
+                </div>
+                <div class="row">
+                    <button class="col btn btn-warning m-1" onclick="appendNumber('7')">7</button>
+                    <button class="col btn btn-warning m-1" onclick="appendNumber('8')">8</button>
+                    <button class="col btn btn-warning m-1" onclick="appendNumber('9')">9</button>
+                    <button class="col btn btn-danger m-1" onclick="clearDisplay()">C</button>
+                </div>
+                <div class="row">
+                    <button class="col btn btn-warning m-1" onclick="appendNumber('0')">0</button>
+                    <button class="col btn btn-warning m-1" onclick="appendNumber('.')">.</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-5">
+    <h2 class="text-center">Country-Specific Solar Panel Information</h2>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-success text-white text-center">Information - Mexico</div>
+                <div class="card-body">
+                    <p>Details about solar panel benefits, installation costs, and incentives in Mexico.</p>
+                    <!-- Aquí información específica sobre México -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">Information - USA</div>
+                <div class="card-body">
+                    <p>Details about solar panel benefits, installation costs, and incentives in the USA.</p>
+                    <!-- Aquí información específica sobre USA -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-danger text-white text-center">Information - Canada</div>
+                <div class="card-body">
+                    <p>Details about solar panel benefits, installation costs, and incentives in Canada.</p>
+                    <!-- Aquí información específica sobre Canadá -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    let displayValue = '0';
+    let currentOperation = null;
+    let savedValue = null;
+
+    
+    function displayCountryInfo() {
+        const country = document.getElementById("countrySelect").value;
+        const infoDiv = document.getElementById("countryInfo");
+        if (country === "Mexico") {
+            infoDiv.innerHTML = "<p>Estimated annual savings in Mexico: $500 USD</p>";
+        } else if (country === "USA") {
+            infoDiv.innerHTML = "<p>Estimated annual savings in the USA: $1,000 USD</p>";
+        } else if (country === "Canada") {
+            infoDiv.innerHTML = "<p>Estimated annual savings in Canada: $700 USD</p>";
+        } else {
+            infoDiv.innerHTML = "";
+        }
+    }
+//calculadora
+    function appendNumber(number) {
+        if (displayValue === '0' || currentOperation === '=') {
+            displayValue = number;
+        } else {
+            displayValue += number;
+        }
+        document.getElementById('display').innerText = displayValue;
+        currentOperation = null;
+    }
+
+    function setOperation(op) {
+        if (displayValue !== '0') {
+            savedValue = parseFloat(displayValue);
+            currentOperation = op;
+            displayValue = '0';
+            document.getElementById('display').innerText = displayValue;
+        }
+    }
+
+    function calculate() {
+        if (currentOperation && savedValue !== null) {
+            if (currentOperation === '+') {
+                displayValue = (savedValue + parseFloat(displayValue)).toString();
+            }
+            savedValue = null;
+            currentOperation = '=';
+            document.getElementById('display').innerText = displayValue;
+        }
+    }
+
+    function clearDisplay() {
+        displayValue = '0';
+        currentOperation = null;
+        savedValue = null;
+        document.getElementById('display').innerText = displayValue;
+    }
+</script>
+
+
+
+<%- include("partials/footer"); -%>

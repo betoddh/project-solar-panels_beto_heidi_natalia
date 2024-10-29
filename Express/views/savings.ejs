@@ -16,36 +16,16 @@
             <div id="countryInfo" class="text-center mt-4"></div>
 
             <h4 class="text-center mt-4">Calculate how much you would save if you had solar panels</h4>
-            
-            <div class="calculator-container mt-4" style="max-width: 300px; margin: auto;">
-                <div class="screen bg-info text-white text-center p-3 mb-3 rounded" id="display">0</div>
-                <div class="row">
-                    <button class="col btn btn-warning m-1" onclick="appendNumber('1')">1</button>
-                    <button class="col btn btn-warning m-1" onclick="appendNumber('2')">2</button>
-                    <button class="col btn btn-warning m-1" onclick="appendNumber('3')">3</button>
-                    <button class="col btn btn-secondary m-1" onclick="setOperation('+')">+</button>
-                </div>
-                <div class="row">
-                    <button class="col btn btn-warning m-1" onclick="appendNumber('4')">4</button>
-                    <button class="col btn btn-warning m-1" onclick="appendNumber('5')">5</button>
-                    <button class="col btn btn-warning m-1" onclick="appendNumber('6')">6</button>
-                    <button class="col btn btn-secondary m-1" onclick="calculate()">=</button>
-                </div>
-                <div class="row">
-                    <button class="col btn btn-warning m-1" onclick="appendNumber('7')">7</button>
-                    <button class="col btn btn-warning m-1" onclick="appendNumber('8')">8</button>
-                    <button class="col btn btn-warning m-1" onclick="appendNumber('9')">9</button>
-                    <button class="col btn btn-danger m-1" onclick="clearDisplay()">C</button>
-                </div>
-                <div class="row">
-                    <button class="col btn btn-warning m-1" onclick="appendNumber('0')">0</button>
-                    <button class="col btn btn-warning m-1" onclick="appendNumber('.')">.</button>
-                </div>
+            <div>
+                <input type="number" id="dinero" placeholder="How much do you pay (monthly)">
+                <button id="sumit" onclick="calcular()">Sumit</button>
+                <br><br>
+                <span id="panels"></span>
+                <span id="info"></span>
             </div>
         </div>
     </div>
 </div>
-
 
 <div class="container mt-5">
     <h2 class="text-center">Country-Specific Solar Panel Information</h2>
@@ -63,8 +43,18 @@
             <div class="card">
                 <div class="card-header bg-primary text-white text-center">Information - USA</div>
                 <div class="card-body">
-                    <p>Details about solar panel benefits, installation costs, and incentives in the USA.</p>
+                    <p>Details about solar panel benefits, installation costs, and incentives in the USA.</p><br>
                     <!-- Aquí información específica sobre USA -->
+                    <p>A single 450-watt solar panel generates about 2.7 kWh per day,<br> which adds up to roughly 81 kWh each month—and each panel costs around $742.50.</p>
+
+                    <p>For energy needs, a 2,000-square-foot home typically requires around 18 solar panels,<br> while a larger 3,000-square-foot home might need closer to 30 panels.</p>
+                    
+                    <p>With electricity rates in the U.S. averaging around $0.1547 per kWh,<br> the typical American household consumes around 900 kWh monthly,<br> totaling $139.23 in electricity costs.</p>
+                    
+                    <p>Now, consider this: installing just 18 of these 450-watt panels generates about 1,458 kWh each month,<br> which translates to a monthly savings of $225.55.<br> Over a year, that’s a savings of $2,706.63!</p>
+                    
+                    <p>In fact, comparing typical U.S. household electricity costs with the energy output from 18 solar panels,<br> you’d be saving approximately $86 each month,<br> putting money back into the family budget!</p>
+                    
                 </div>
             </div>
         </div>
@@ -80,65 +70,89 @@
     </div>
 </div>
 
-
 <script>
-    let displayValue = '0';
-    let currentOperation = null;
-    let savedValue = null;
-
-    
     function displayCountryInfo() {
         const country = document.getElementById("countrySelect").value;
         const infoDiv = document.getElementById("countryInfo");
         if (country === "Mexico") {
-            infoDiv.innerHTML = "<p>Estimated annual savings in Mexico: $500 USD</p>";
+            infoDiv.innerHTML = "<p>Estimated annual savings in Mexico: $ MXN</p>";
         } else if (country === "USA") {
-            infoDiv.innerHTML = "<p>Estimated annual savings in the USA: $1,000 USD</p>";
+            infoDiv.innerHTML = "<p>Estimated annual savings in the USA: $ USD</p>";
         } else if (country === "Canada") {
-            infoDiv.innerHTML = "<p>Estimated annual savings in Canada: $700 USD</p>";
+            infoDiv.innerHTML = "<p>Estimated annual savings in Canada: $ CAN</p>";
         } else {
             infoDiv.innerHTML = "";
         }
     }
-//calculadora
-    function appendNumber(number) {
-        if (displayValue === '0' || currentOperation === '=') {
-            displayValue = number;
+    function calcular(){
+        const country = document.getElementById("countrySelect").value;
+        const paneles = document.getElementById("panels");
+        const info=document.getElementById("info");
+        if (country === "Mexico") {
+            paneles.innerHTML = mexico();
+            info.innerHTML="After that time, all the electricity you use will be a profit for your pocket."
+        } else if (country === "USA") {
+            paneles.innerHTML = USA();
+            info.innerHTML="After that time, all the electricity you use will be a profit for your pocket."
+        } else if (country === "Canada") {
+            paneles.innerHTML = canada();
+            info.innerHTML="After that time, all the electricity you use will be a profit for your pocket."
         } else {
-            displayValue += number;
-        }
-        document.getElementById('display').innerText = displayValue;
-        currentOperation = null;
-    }
-
-    function setOperation(op) {
-        if (displayValue !== '0') {
-            savedValue = parseFloat(displayValue);
-            currentOperation = op;
-            displayValue = '0';
-            document.getElementById('display').innerText = displayValue;
+            paneles.innerHTML = "<p>You need to choose a country</p>";
         }
     }
+    function mexico() {
+    var din = parseFloat(document.getElementById("dinero").value);
+    var wh = 0;
+    const dinorg=din;
 
-    function calculate() {
-        if (currentOperation && savedValue !== null) {
-            if (currentOperation === '+') {
-                displayValue = (savedValue + parseFloat(displayValue)).toString();
-            }
-            savedValue = null;
-            currentOperation = '=';
-            document.getElementById('display').innerText = displayValue;
-        }
+    if (din >= 76.125) {
+        din -= 76.125;
+        wh += 75;
+    } else {
+        wh += Math.ceil(din / 1.015);
+        din = 0;
+    }
+    if (din >= 81.25) {
+        din -= 81.25;
+        wh += 65;
+    } else if (din > 0) {
+        wh += Math.ceil(din / 1.25);
+        din = 0;
+    }
+    if (din > 0) {
+        wh += Math.ceil(din / 3.73);
     }
 
-    function clearDisplay() {
-        displayValue = '0';
-        currentOperation = null;
-        savedValue = null;
-        document.getElementById('display').innerText = displayValue;
-    }
+    const paneles1 = Math.ceil(wh / 500);
+    var tiempo;//meses
+    tiempo=Math.ceil(80000/dinorg);
+    
+    const imp = `You need at least ${paneles1} panel(s) to cover your electricity cost. And you would recover your money ${tiempo} in months.`;
+    return imp;
+}
+
+
+    function USA() {
+        var din = parseFloat(document.getElementById("dinero").value);
+        var wh = 0,tiempo,paneles1;
+        wh=Math.ceil(din/0.1547);
+        paneles1=Math.ceil(wh / 81);
+        tiempo=Math.ceil(742.50/din);
+        const imp = `You need at least ${paneles1} panel(s) to cover your electricity cost. And you would recover your money ${tiempo} in months.`;
+        return imp;
+}
+
+    function canada(){
+        var din = parseFloat(document.getElementById("dinero").value);
+        var wh = 0,tiempo,paneles1;
+        wh=Math.ceil(din/.192);
+        paneles1=Math.ceil(wh / 600);
+        tiempo=Math.ceil(20000/din);
+        const imp = `You need at least ${paneles1} panel(s) to cover your electricity cost. And you would recover your money ${tiempo} in months.`;
+        return imp;
+}
 </script>
-
 
 
 <%- include("partials/footer"); -%>
